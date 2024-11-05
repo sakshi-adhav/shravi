@@ -1,0 +1,62 @@
+create database library;
+
+use library;
+
+create table borrower(rollin int(11) primary key not null,name char (20) not null,dateofIssue date,bname char(20),status char(1));
+
+create table fine(rollno int(11), fdate date,amt int(11) , foreign key (rollno) references borrower(rollin));
+
+desc borrower;
+
+desc fine;
+
+insert into borrower values(1,'a','2024-9-01','java','I');
+
+insert into borrower values(2,'b','2024-9-05','networking ','I');
+
+insert into borrower values(3,'c','2024-08-13','dbms','I');
+
+insert into borrower values(4,'d','2024-09-22','CN','I');
+
+select*from borrower;
+
+select*from fine;
+
+delimiter $
+
+create procedure fine_calculatio(IN rno int,bname char(20))
+    ->      begin
+    ->      declare i_date date;
+    ->      declare diff int;
+    ->      declare fine_amt int;
+    ->      declare exit handler for sqlexception select 'Table not found ';
+    ->      select dateofIssue into i_date from borrower where rollin=rno and bname=bname;
+    ->      select datediff(curdate(),i_date) into diff;
+    ->      if(diff>15 and diff<=30) then
+    ->      set fine_amt=diff*5;
+    ->      insert into fine values (rno,curdate(),fine_amt);
+    ->      elseif(diff>30) then
+    ->      set fine_amt =15*5+(diff-30)*50;
+    ->      insert into fine values (rno ,curdate(),fine_amt);
+    ->      end if;
+    ->      update borrower set status ='R' where rollin=rno and bname =bname ;
+    ->      end;
+    ->      $
+
+call fine_calculatio(3,'dbms');
+
+select*from fine;
+-> $
+
+call fine_calculatio(2,'networking');
+    -> $
+
+select*from fine
+    -> $
+
+call fine_calculatio(4,'CN');
+    -> $
+
+select*from fine;
+    -> $
+

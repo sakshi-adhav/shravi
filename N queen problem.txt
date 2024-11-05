@@ -1,0 +1,67 @@
+class NQueenProblem:
+    def __init__(self, N=4):
+        self.N = N  # Size of the chessboard
+
+    # A utility function to print the solution
+    def print_solution(self, board):
+        for row in board:
+            print(" ".join(str(x) for x in row))
+
+    # A utility function to check if a queen can be placed at board[row][col]
+    def is_safe(self, board, row, col):
+        # Check this row on the left side
+        for i in range(col):
+            if board[row][i] == 1:
+                return False
+
+        # Check upper diagonal on the left side
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+
+        # Check lower diagonal on the left side
+        for i, j in zip(range(row, self.N), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+
+        return True
+
+    # A recursive utility function to solve N Queen problem
+    def solve_nq_util(self, board, col):
+        # Base case: If all queens are placed
+        if col >= self.N:
+            return True
+
+        # Consider this column and try placing the queen in all rows one by one
+        for i in range(self.N):
+            # Check if the queen can be placed on board[i][col]
+            if self.is_safe(board, i, col):
+                # Place this queen in board[i][col]
+                board[i][col] = 1
+
+                # Recur to place the rest of the queens
+                if self.solve_nq_util(board, col + 1):
+                    return True
+
+                # If placing queen in board[i][col] doesn't lead to a solution,
+                # remove queen from board[i][col] (BACKTRACK)
+                board[i][col] = 0
+
+        # If the queen cannot be placed in any row in this column, return false
+        return False
+
+    # This function solves the N Queen problem using Backtracking.
+    def solve_nq(self):
+        board = [[0] * self.N for _ in range(self.N)]  # Initialize the board
+
+        if not self.solve_nq_util(board, 0):
+            print("Solution does not exist")
+            return False
+
+        self.print_solution(board)
+        return True
+
+# Driver program to test the above function
+if __name__ == "__main__":
+    queen = NQueenProblem()
+    queen.solve_nq()

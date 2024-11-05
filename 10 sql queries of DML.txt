@@ -1,0 +1,56 @@
+create database std_details;
+
+use std_details;
+
+create table student2 (roll_no int primary key,name varchar(20),address varchar(40),phone varchar(10),age varchar(2));
+
+desc student2;
+
+insert into student2 values (1,'sham','bihar','1111111111','18');
+
+insert into student2 values (2,'ram','kolkata','2222222222','20');
+
+insert into student2 values (3,'priyanka','pune','3333333333','19');
+
+insert into student2 values (4,'sai','mumbai','4444444444','18');
+
+select*from student2;
+
+create table studentcourse (cID int(1),roll_no int, foreign key(roll_no) references student2(roll_no));
+
+desc studentcourse;
+
+insert into studentcourse values(1,1);
+
+insert into studentcourse values(2,2);
+
+insert into studentcourse values(2,3);
+
+insert into studentcourse values (3,4);
+
+select *from studentcourse;
+
+select*from student2 inner join studentcourse on student2.roll_no =studentcourse.roll_no;
+
+select*from student2 left join studentcourse on student2.roll_no =studentcourse.roll_no;
+
+select*from student2 full join studentcourse on student2.roll_no =studentcourse.roll_no;
+
+select*from student2 join studentcourse;
+
+select* from student2;
+
+select a.name,b.roll_no from student2 a,student2 b where a.age<b.age order by a.name;
+
+select a.name,b.roll_no from student2 a,student2 b where a.age<b.age;
+
+select*from student2 right join studentcourse on student2.roll_no =studentcourse.roll_no;
+
+create view newView as select student2.name,student2.roll_no,studentcourse.cID from student2 left join studentcourse on student2.roll_no=studentcourse.roll_no;
+
+select*from newView;
+
+select *from student2 where roll_no in
+    -> (select roll_no from studentcourse);
+
+select*from student2 where roll_no in(select roll_no from studentcourse where student2.age<20);

@@ -1,0 +1,16 @@
+show databases;
+
+create database student;
+
+use student;
+
+create table record(ID int primary key,name varchar(10) not null,Gender char);
+
+desc record;
+
+show databases;
+
+insert into record(ID,name,gender)
+VALUES('123','RAJ','m');
+
+select * from record;

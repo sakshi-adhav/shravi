@@ -1,0 +1,84 @@
+import random
+
+MAX_RESP = 3
+
+class KnowledgeBaseEntry:
+    def __init__(self, input_text, responses):
+        self.input_text = input_text
+        self.responses = responses
+
+# Knowledge base of predefined responses
+knowledge_base = [
+    KnowledgeBaseEntry("WHAT IS YOUR NAME", [
+        "MY NAME IS CHATTERBOT2.",
+        "YOU CAN CALL ME CHATTERBOT2.",
+        "WHY DO YOU WANT TO KNOW MY NAME?"
+    ]),
+    KnowledgeBaseEntry("HI", [
+        "HI THERE!",
+        "HOW ARE YOU?",
+        "HI!"
+    ]),
+    KnowledgeBaseEntry("HOW ARE YOU", [
+        "I'M DOING FINE!",
+        "I'M DOING WELL AND YOU?",
+        "WHY DO YOU WANT TO KNOW HOW AM I DOING?"
+    ]),
+    KnowledgeBaseEntry("WHO ARE YOU", [
+        "I'M AN A.I PROGRAM.",
+        "I THINK THAT YOU KNOW WHO I'M.",
+        "WHY ARE YOU ASKING?"
+    ]),
+    KnowledgeBaseEntry("ARE YOU INTELLIGENT", [
+        "YES, OF COURSE.",
+        "WHAT DO YOU THINK?",
+        "ACTUALLY, I'M VERY INTELLIGENT!"
+    ]),
+    KnowledgeBaseEntry("ARE YOU REAL", [
+        "DOES THAT QUESTION REALLY MATTER TO YOU?",
+        "WHAT DO YOU MEAN BY THAT?",
+        "I'M AS REAL AS I CAN BE."
+    ])
+]
+
+def find_match(user_input):
+    for entry in knowledge_base:
+        if entry.input_text == user_input:
+            return entry.responses
+    return []
+
+def main():
+    print("Welcome to ChatterBot2! Type 'BYE' to exit.")
+    while True:
+        user_input = input("> ").strip().upper()  # Get input and convert to uppercase
+
+        if user_input == "BYE":
+            print("IT WAS NICE TALKING TO YOU USER, SEE YOU NEXT TIME!")
+            break
+        
+        responses = find_match(user_input)
+        if not responses:
+            print("I'M NOT SURE IF I UNDERSTAND WHAT YOU ARE TALKING ABOUT.")
+        else:
+            response = random.choice(responses)
+            print(response)
+
+if __name__ == "__main__":
+    main()
+
+
+
+OUTPUT:
+Welcome to ChatterBot2! Type 'BYE' to exit.
+> hi
+HOW ARE YOU?
+> fine
+I'M NOT SURE IF I UNDERSTAND WHAT YOU ARE TALKING ABOUT.
+> I'M DOING FINE!
+I'M NOT SURE IF I UNDERSTAND WHAT YOU ARE TALKING ABOUT.
+> who are you
+WHY ARE YOU ASKING?
+> are you real
+I'M AS REAL AS I CAN BE.
+> bye
+IT WAS NICE TALKING TO YOU USER, SEE YOU NEXT TIME!

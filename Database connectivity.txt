@@ -1,0 +1,50 @@
+
+CONNECTIVITY CODE-
+
+$host = 'localhost';
+$db = 'add your database name';
+$user = 'root'; // Your database username
+$pass = ''; // Your database password
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+Additional Operations On Database-
+
+1.TABLE CREATION
+
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    email VARCHAR(100)
+);
+
+
+2.INSERTION OF DATA
+
+INSERT INTO students (id, name, age, email)
+VALUES 
+    (1, 'SAKSHI', 20, 'sakshi@example.com'),
+    (2, 'NIKITA', 20, 'nikita@example.com'),
+    (3, 'SAMRUDHII', 20, 'samrudhii@example.com'),
+    (4, 'MADHURA', 20, 'madhura@example.com');
+
+
+3.UPDATION OF DATA
+
+UPDATE students
+SET age = 21, email = 'sakshi@example.com'
+WHERE id = 1;
+
+
+4.DELETION OF DATA
+
+DELETE FROM students
+WHERE id = 1; 
+
+
+

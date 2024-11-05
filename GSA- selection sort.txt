@@ -1,0 +1,32 @@
+def selection_sort(a):
+    n = len(a)  # Determine the number of elements in the array
+    for i in range(n):
+        min_index = i  # Initialize the minimum index
+        for j in range(i + 1, n):
+            if a[j] < a[min_index]:
+                min_index = j  # Update the minimum index if a smaller element is found
+        # Swap the found minimum element with the first element
+        a[i], a[min_index] = a[min_index], a[i]
+    return a
+
+# Input number of elements
+n = int(input("Enter number of elements: "))
+a = []
+
+# Input elements
+for i in range(n):
+    a.append(int(input("Enter element: ")))
+
+# Sort and print the sorted array
+print("Sorted array:", selection_sort(a))
+
+
+
+OUTPUT:
+Enter number of elements: 5
+Enter element: 38
+Enter element: 92
+Enter element: 19
+Enter element: 42
+Enter element: 9
+Sorted array: [9, 19, 38, 42, 92]
